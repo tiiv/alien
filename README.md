@@ -1,9 +1,10 @@
 alien
 =====
+Python command line tool for displaying submissions of a particular subreddit
+
 
 ## Setup
 
-Python command line tool for displaying submissions of a particular subreddit
 
 Requires a working python installation.
 
