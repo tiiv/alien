@@ -22,4 +22,4 @@ To view submissions of a particular subreddit (e.g. /r/python), simply invoke:
 alien.py python
 ```
 
-[Screenshots!](screenshots/screenshot.png)
+![Screenshots](screenshots/screenshot.png "Submissions in /r/python")
