@@ -27,9 +27,10 @@ alien.py python
 
 ## TODO
 
-- [ ] Maybe find a better name
-- [ ] Correct submission timestamps (there seem to be deviations in comparison to the website)
-- [ ] Display content of text only submissions?? 
+ - [x] initial design
+ - Maybe find a better name
+ - Correct submission timestamps (there seem to be deviations in comparison to the website)
+ - Display content of text only submissions?? 
 
 
 ## Screenshots
