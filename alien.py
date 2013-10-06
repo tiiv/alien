@@ -58,7 +58,7 @@ try:
             unit += "s"
 
         # print info
-        info  = "\033[0;34m"
+        info  = "\033[1;36m"
         info += "%5d" % attributes["score"]
         info += "   "
         info += "\033[1;37m"
