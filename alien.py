@@ -32,7 +32,7 @@ try:
 
     # print header
     print
-    print "25 Hottest submissions of \033[0;34mr/%s" % (sys.argv[1])
+    print "25 Hottest submissions of \033[0;34m/r/%s" % (sys.argv[1])
     print
 
     # print submission infos
