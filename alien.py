@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 import httplib
 import json
@@ -23,50 +23,66 @@ try:
 
     # fetch response
     response = connection.getresponse()
+
+    # check response status code
+    if (response.status == 200):
     
-    # parse json data
-    data = json.loads(response.read())
+        # parse json data
+        data = json.loads(response.read())
 
-    # fetch current utc time
-    current_utc = time.time() - time.timezone
+        # fetch current utc time
+        current_utc = time.time() - time.timezone
 
-    # print header
-    print
-    print "25 Hottest submissions of \033[1;36m/r/%s" % (sys.argv[1])
-    print
+        # print header
+        print
+        print "25 Hottest submissions of \033[1;36m/r/%s" % (sys.argv[1])
+        print
 
-    # print submission infos
-    for submission in iter(data["data"]["children"]):
+        # print submission infos
+        for submission in iter(data["data"]["children"]):
 
-        # submission attributes
-        attributes = submission["data"]
+            # submission attributes
+            attributes = submission["data"]
 
-        # parse time of submission
-        submitted = current_utc - attributes["created_utc"]
-        unit = "minute"
-        if (submitted > 60 * 60 * 24):
-            submitted = round(submitted / 60 / 60 / 24)
-            unit = "day"
-        elif (submitted > 60 * 60):
-            submitted = round(submitted / 60 / 60)
-            unit = "hour"
-        elif (submitted > 60):
-            submitted = round(submitted / 60)
+            # parse time of submission
+            submitted = current_utc - attributes["created_utc"]
+            unit = "minute"
+            if (submitted > 60 * 60 * 24):
+                submitted = round(submitted / 60 / 60 / 24)
+                unit = "day"
+            elif (submitted > 60 * 60):
+                submitted = round(submitted / 60 / 60)
+                unit = "hour"
+            elif (submitted > 60):
+                submitted = round(submitted / 60)
 
-        # append 's' if plural 
-        if (submitted >= 2):
-            unit += "s"
+            # append 's' if plural 
+            if (submitted >= 2):
+                unit += "s"
 
-        # print info
-        info  = "\033[1;36m"
-        info += "%5d" % attributes["score"]
-        info += "   "
-        info += "\033[1;37m"
-        info += "\"%s\"" % attributes["title"]
-        info += "\033[1;30m"
-        info += "\n"
-        info += "        -- submitted %d %s by %s\n" % (submitted, unit, attributes["author"]) 
-        print info
+            #comments
+            number = attributes["num_comments"]
+            comments = "%d comment" % number
+            if (number != 1):
+                comments += "s"
+                
+            # print info
+            info  = "\033[1;36m"
+            info += "%5d" % attributes["score"]
+            info += "   "
+            info += "\033[1;37m"
+            info += "\"%s\"" % attributes["title"]
+            info += "\033[1;30m"
+            info += "\n"
+            info += "        -- submitted %d %s by %s" % (submitted, unit, attributes["author"]) 
+            info += " | %s" % comments
+            print info
+
+        # add extra line
+        print
+
+    else:
+        print "Invalid subreddit: /r/%s" % sys.argv[1]
 
 except httplib.HTTPException:
     print "Unable to reach Reddit's server."
